@@ -1,5 +1,6 @@
 import React from 'react'
 
+import logo from '../../../assets/images/logo/logo-home.png'
 import background from '../../../assets/images/background/a-1.png'
 import './home.css'
 
@@ -7,7 +8,9 @@ const Home = () => {
   return (
     <div className="home-container">
       <header className="home-header">
-        <div className="logo-container"></div>
+        <div className="logo-container">
+          <img src={logo} alt="logo" />
+        </div>
         {/* <div className="nav-buttons">
           <button className="nav-btn">Button 1</button>
           <button className="nav-btn">Button 2</button>
