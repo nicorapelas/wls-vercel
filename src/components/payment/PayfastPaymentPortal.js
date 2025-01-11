@@ -76,15 +76,12 @@ const PayfastPaymentPortal = () => {
         description: `Purchase of ${productCode}`,
       })
 
-      // Get the HTML response as text
-      const html = await response.text()
-
-      // Create a new window and write the HTML
-      const newWindow = window.open()
+      // Create a new window and write the HTML response
+      const newWindow = window.open('', '_blank')
       if (newWindow) {
-        newWindow.document.write(html)
+        newWindow.document.write(response.data) // Use response.data instead of response.text()
       } else {
-        setError('Pop-up blocked. Please allow pop-ups for this site.')
+        throw new Error('Pop-up blocked. Please allow pop-ups for this site.')
       }
 
       setLoading(false)
