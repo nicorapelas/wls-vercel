@@ -75,16 +75,43 @@ const PayfastPaymentPortal = () => {
         productCode: productCode,
         description: `Purchase of ${productCode}`,
       })
+      console.log('Payment response:', response)
 
-      // Create a new window and write the HTML response
-      const newWindow = window.open('', '_blank')
-      if (newWindow) {
-        newWindow.document.write(response.data) // Use response.data instead of response.text()
+      if (response?.paymentData && response?.redirectUrl) {
+        const form = formRef.current
+        if (!form) {
+          console.error('Form reference is null!')
+          return
+        }
+
+        console.log('Creating form with action:', response.redirectUrl)
+        form.innerHTML = ''
+        form.method = 'POST'
+        form.enctype = 'application/x-www-form-urlencoded'
+
+        // Add all payment data fields
+        Object.entries(response.paymentData).forEach(([key, value]) => {
+          const input = document.createElement('input')
+          input.type = 'hidden'
+          input.name = key
+          input.value = String(value)
+          form.appendChild(input)
+          console.log(`Added form field: ${key} = ${value}`)
+        })
+
+        form.action = response.redirectUrl
+        console.log('Form ready for submission:', {
+          action: form.action,
+          fields: Object.fromEntries(new FormData(form)),
+        })
+
+        console.log('Submitting form to Payfast...')
+        form.submit()
       } else {
-        throw new Error('Pop-up blocked. Please allow pop-ups for this site.')
+        console.error('Invalid response:', response)
+        setError('Invalid payment data received')
+        setLoading(false)
       }
-
-      setLoading(false)
     } catch (error) {
       console.error('Payment error:', error)
       setError(error.message || 'Failed to initialize payment')
@@ -97,6 +124,9 @@ const PayfastPaymentPortal = () => {
       <h2>Make Payment</h2>
       {error && <div className="error-message">{error}</div>}
       <div className="payment-status">{loading ? 'Processing...' : ''}</div>
+
+      {/* Hidden form for Payfast submission */}
+      <form ref={formRef} method="POST" style={{ display: 'none' }} />
     </div>
   )
 }
