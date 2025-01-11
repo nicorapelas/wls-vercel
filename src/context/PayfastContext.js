@@ -36,30 +36,16 @@ const clearError = (dispatch) => () => {
   dispatch({ type: 'CLEAR_ERROR' })
 }
 
-const initiatePayment = (dispatch) => async (paymentData) => {
+const initiatePayment = (dispatch) => async (paymentDetails) => {
   try {
-    dispatch({ type: 'SET_LOADING' })
-    console.log('Initiating Payfast payment with:', paymentData)
-
-    // Make sure we're hitting the Payfast endpoint
-    const response = await ngrokApi.post('/payment/create-payment', paymentData)
-
-    console.log('Payfast response:', response.data)
-
-    dispatch({
-      type: 'SET_PAYMENT_DATA',
-      payload: {
-        ...response.data,
-        paymentInitiated: true,
-      },
-    })
-    return response.data
+    const response = await ngrokApi.post(
+      '/payment/create-payment',
+      paymentDetails,
+    )
+    // Don't parse as JSON, just return the raw response
+    return response
   } catch (error) {
-    console.error('Payfast payment error:', error)
-    dispatch({
-      type: 'SET_ERROR',
-      payload: error.response?.data?.message || 'Payment initiation failed',
-    })
+    console.error('Payment initiation failed:', error)
     throw error
   }
 }
