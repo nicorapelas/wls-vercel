@@ -32,16 +32,12 @@ const Dashboard = () => {
     return (
       <div className="dashboard-container">
         <div className="dashboard-buttons-container">
-          <div className="dashboard-buttons-container-left">
-            <button className="nav-button" onClick={handleMyCardsPress}>
-              My Cards
-            </button>
-          </div>
-          <div className="dashboard-buttons-container-right">
-            <button className="signout-button" onClick={handleSignout}>
-              Sign Out
-            </button>
-          </div>
+          <button className="nav-button" onClick={handleMyCardsPress}>
+            My Cards
+          </button>
+          <button className="signout-button" onClick={handleSignout}>
+            Sign Out
+          </button>
         </div>
         <main className="dashboard-content">
           <WP001 />

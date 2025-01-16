@@ -12,18 +12,6 @@
   max-width: 100%;
 }
 
-.dashboard-buttons-container-left {
-  margin-left: 10px;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.dashboard-buttons-container-right {
-  margin-right: 10px;
-  display: flex;
-  justify-content: flex-end;
-}
-
 .nav-button {
   padding: 8px 16px;
   background-color: #f4d63d;
@@ -199,18 +187,4 @@
   .admin-panel-container {
     grid-template-columns: 1fr;
   }
-}
-
-.dashboard-buttons-container-left {
-  margin-right: 10px;
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.dashboard-buttons-container-right {
-  margin-left: 10px;
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-start;
 }
