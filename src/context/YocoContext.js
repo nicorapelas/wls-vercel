@@ -21,6 +21,12 @@ const yocoReducer = (state, action) => {
       return { ...state, paymentTriggered: action.payload }
     case 'SET_PAYMENT_HISTORY':
       return { ...state, paymentHistory: action.payload }
+    case 'SET_ALL_PAYMENT_HISTORY':
+      return { ...state, allPaymentHistory: action.payload, loading: false }
+    case 'SET_USER_OF_PAYMENT':
+      return { ...state, userOfPayment: action.payload, loading: false }
+    case 'SET_USER_OF_PAYMENT_PROPS':
+      return { ...state, userOfPaymentProps: action.payload }
     default:
       return state
   }
@@ -70,6 +76,25 @@ const fetchPaymentHistory = (dispatch) => async (ownerId) => {
   dispatch({ type: 'SET_PAYMENT_HISTORY', payload: response.data })
 }
 
+// Admin actoins
+const fetchAllPaymentHistory = (dispatch) => async () => {
+  dispatch({ type: 'SET_LOADING' })
+  const response = await ngrokApi.get('/payment/fetch-all-payments')
+  dispatch({ type: 'SET_ALL_PAYMENT_HISTORY', payload: response.data })
+}
+
+const fetchUserOfPayment = (dispatch) => async (userId) => {
+  dispatch({ type: 'SET_LOADING' })
+  const response = await ngrokApi.post('/payment/fetch-user-of-payment', {
+    userId,
+  })
+  dispatch({ type: 'SET_USER_OF_PAYMENT', payload: response.data })
+}
+
+const setUserOfPaymentProps = (dispatch) => (props) => {
+  dispatch({ type: 'SET_USER_OF_PAYMENT_PROPS', payload: props })
+}
+
 export const { Context, Provider } = createDataContext(
   yocoReducer,
   {
@@ -79,6 +104,10 @@ export const { Context, Provider } = createDataContext(
     setConfirmPurchase,
     setPaymentTriggered,
     fetchPaymentHistory,
+    fetchAllPaymentHistory,
+    fetchUserOfPayment,
+    setUserOfPaymentProps,
+    setUserOfPaymentProps,
   },
   {
     loading: false,
@@ -87,5 +116,8 @@ export const { Context, Provider } = createDataContext(
     confirmPurchase: false,
     paymentTriggered: false,
     paymentHistory: [],
+    allPaymentHistory: [],
+    userOfPayment: null,
+    userOfPaymentProps: null,
   },
 )

@@ -1,19 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import CardsOwing from './CardsOwing'
 import '../dashboard/dashboard.css'
 
 const AdminPanel = () => {
   const navigate = useNavigate()
 
-  const handleBackButtonPress = () => {
-    navigate('/dashboard')
-  }
-
   return (
     <div className="card-info">
-      <button className="nav-button" onClick={handleBackButtonPress}>
-        Back
-      </button>
+      <CardsOwing />
       <div className="info-section">
         <h4>Admin Panel</h4>
         <div className="admin-panel-container">

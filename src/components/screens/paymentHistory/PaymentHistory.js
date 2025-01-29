@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { format } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
 import Loader from '../../common/loaders/fullScreenLoader/LoaderFullScreen'
-import { Context as PayfastContext } from '../../../context/PayfastContext'
+import { Context as YocoContext } from '../../../context/YocoContext'
 import UserOfPayment from './UserOfPayment'
 import '../dashboard/dashboard.css'
 
@@ -13,7 +13,7 @@ const PaymentHistory = () => {
     state: { allPaymentHistory, loading, userOfPaymentProps },
     fetchAllPaymentHistory,
     setUserOfPaymentProps,
-  } = useContext(PayfastContext)
+  } = useContext(YocoContext)
 
   useEffect(() => {
     fetchAllPaymentHistory()
