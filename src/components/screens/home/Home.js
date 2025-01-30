@@ -20,7 +20,7 @@ const Home = () => {
 
       <main className="main-content">
         <div className="text-overlay">
-          <h1>Welcome to Watchlist Pro</h1>
+          <h1>Welcome to Watchlist Pro!</h1>
           <div className="content-wrapper">
             <p className="main-description">
               Watchlist Pro is a powerful, user-friendly, and versatile
